@@ -1,0 +1,13 @@
+{
+  "cache_source": "/home/zhangzj26/scene_semantic_uda/runs_strict_mluda_1341/ilda.npz",
+  "cache_sha256": "de23928cf5a0aa19fe1c07b8c7c0e61720e499d64ff7eec48fb97724d24e7f54",
+  "raw_inputs": {
+    "Houston13.mat": "23039c1db9c3b82bde2b033381d3d7540c8201cc0e77d33eac816ab6cb1b8948",
+    "Houston18.mat": "15cdefb3639342344fbcb141d2ad8f729c387f3192174b82f8eaeede621fd208"
+  },
+  "parameters": {
+    "pca_n": 2,
+    "radius": 0.009
+  },
+  "provenance_limit": "existing local cache realization, not fresh upstream recomputation"
+}

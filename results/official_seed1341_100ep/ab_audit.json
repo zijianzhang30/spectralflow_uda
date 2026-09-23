@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "epochs": 100,
+  "steps": 3800,
+  "mismatches": [],
+  "validation_equal": true,
+  "selected_checkpoint_equal": true
+}

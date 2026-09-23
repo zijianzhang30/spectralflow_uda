@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "seeds": [
+    {
+      "seed": 1341,
+      "source_patches": 1260,
+      "target_patches": 53200,
+      "steps": 38,
+      "passed": true
+    },
+    {
+      "seed": 1174,
+      "source_patches": 1260,
+      "target_patches": 53200,
+      "steps": 38,
+      "passed": true
+    },
+    {
+      "seed": 1370,
+      "source_patches": 1260,
+      "target_patches": 53200,
+      "steps": 38,
+      "passed": true
+    }
+  ],
+  "metrics": true
+}

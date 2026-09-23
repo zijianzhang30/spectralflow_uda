@@ -1,0 +1,9 @@
+{
+  "epochs": 100,
+  "lr_horizon": 100,
+  "seconds": 128.9957230091095,
+  "target_labels_loaded": true,
+  "formal": true,
+  "selection": "source_val_best",
+  "selected_checkpoint": "best_source_val.pth"
+}

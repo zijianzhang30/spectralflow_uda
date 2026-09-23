@@ -1,0 +1,17 @@
+{
+  "official_directory": "/home/zhangzj26/TGRS_MLUDA-2024-main",
+  "author_project": "https://cfcys.github.io/paper/MLUDA.html",
+  "official_repository": "https://github.com/cfcys/TGRS_MLUDA-2024",
+  "github_api_blob": "478db8ddff50057dafd5e67b0bbf8fbc2a594db1",
+  "local_blob": "478db8ddff50057dafd5e67b0bbf8fbc2a594db1",
+  "sha256": "7adfac14955c7792e89842c302bf72f68685950f3a378840fe2e83e8d283020c",
+  "findings": {
+    "config_Houston.py:4": "epochs = 100",
+    "MLUDA_hu.py:171": "if epoch % epochs == 0",
+    "MLUDA_hu.py:53": "test data built from target imagery and target labels",
+    "MLUDA_hu.py:200": "test_accuracy computed from target test_loader",
+    "MLUDA_hu.py:213": "best condition uses target test_accuracy, executed only final epoch with current config",
+    "utils.py:202": "returns processed_data, processed_label; validation return commented out"
+  },
+  "scope": "Verified released Houston code; paper model-selection wording not verified"
+}
