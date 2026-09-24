@@ -99,7 +99,9 @@ def train_stage(model, mode, train_loader, val_loader, device, epochs, out):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--seed", type=int, choices=SEEDS, required=True)
+    p.add_argument("--seed", type=int, required=True)
+    p.add_argument("--student-run", type=Path, default=None)
+    p.add_argument("--out-root", type=Path, default=OUT)
     p.add_argument("--device", default="cuda:0")
     p.add_argument("--stage1-epochs", type=int, default=20)
     p.add_argument("--full-epochs", type=int, default=20)
@@ -110,7 +112,7 @@ def main():
     assert args.batch_size == 32, "fixed diagnostic batch size"
     seed_all(args.seed)
     torch.set_num_threads(4)
-    run = PROJECT / "experiments/round9/runs" / f"formal_A_{args.seed}"
+    run = args.student_run or PROJECT / "experiments/round9/runs" / f"formal_A_{args.seed}"
     split_path = run / "source_split.npz"
     with np.load(split_path) as split:
         train_centers, val_centers = split["train_centers"], split["val_centers"]
@@ -123,7 +125,7 @@ def main():
     train_y = gt[train_centers[:, 0], train_centers[:, 1]].astype(np.int64) - 1
     val_y = gt[val_centers[:, 0], val_centers[:, 1]].astype(np.int64) - 1
     assert np.array_equal(np.bincount(train_y, minlength=7), np.full(7, 180))
-    out = OUT / f"seed_{args.seed}"
+    out = args.out_root / f"seed_{args.seed}"
     out.mkdir(parents=True, exist_ok=True)
     (out / "config.json").write_text(json.dumps({
         "seed": args.seed, "source_split_sha256": sha256(split_path),
