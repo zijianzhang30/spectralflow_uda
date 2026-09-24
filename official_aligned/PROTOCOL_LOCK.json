@@ -1,0 +1,103 @@
+{
+  "name": "SpectralFlow-UDA Houston official-aligned round1",
+  "version": 1,
+  "domain": "Houston13 -> Houston18",
+  "seeds": [
+    1341,
+    1174,
+    1370
+  ],
+  "methods": [
+    "A",
+    "B",
+    "C",
+    "MLUDA_full"
+  ],
+  "source_per_class": 180,
+  "source_train_n": 1260,
+  "source_validation_n": 1270,
+  "target_training": "official GT>0 class-wise then global shuffled centers",
+  "target_n": 53200,
+  "patch_size": 7,
+  "batch_size": 32,
+  "epochs": 100,
+  "updates_per_epoch": 38,
+  "optimizer": {
+    "name": "SGD",
+    "lr": 0.01,
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "reset_each_epoch": true,
+    "schedule": ".01/(1+10*(epoch-1)/100)**.75"
+  },
+  "selection": {
+    "rule": "source_val_best",
+    "metric": "OA",
+    "ties": "earliest",
+    "target_used": false
+  },
+  "test": {
+    "shuffle": false,
+    "drop_last": true,
+    "predicted_n": 53184,
+    "oa_denominator": 53200,
+    "aa_kappa_denominator": 53184,
+    "target_best": "not computed"
+  },
+  "augmentation": "verbatim official radiation_noise and flip_augmentation; original axes retained",
+  "bn": "A/B/C six train-mode source/target/view passes per optimizer step",
+  "algorithm": {
+    "backbone": "DCRN conv + classifier, no attention",
+    "cost": "1-cos",
+    "target_mass": "soft q",
+    "reg": 0.05,
+    "iterations": 100,
+    "pairs_per_present_class": 32,
+    "fm_weight": 1,
+    "target_detach": true,
+    "flow_sampling_rng": "independent CPU generator seed+99173",
+    "initialization_rng": "fork_rng seed+71039",
+    "A": "CE only",
+    "B": "CE + detached Flow",
+    "C": "CE + source-side FM"
+  },
+  "full_mluda": "verbatim official objective and DSANSS; source-val-best; selected-epoch last-source batch at test",
+  "std_ddof": 1,
+  "ilda_sha256": "85c1f2b36ebee78aeb1f613a63f8b1d2ce4404e168b9f66d6567b019e598194e",
+  "preprocessing_seed": 1341,
+  "code": {
+    "check_baseline.py": "b4e1391bb9550adbacffe1c0d869e66ffbcb793a32f576c909c8f91790221324",
+    "baseline_pool.py": "c291ebe643c4fa19ae34f3cbbf00b6f83d2d135b5146448054ef3f14f81eaf12",
+    "augmentation.py": "d272c8ac92b6e3d0c410453638e60957eefe77def5e9f9c4587b43810cd3febd",
+    "prepare_ilda.py": "5dac9d084f136fa1df93a4501eb4a20f85bbff19b1fd3d8fadd4a74535d41022",
+    "audit.py": "670e1ad8dde4c085c24880ef0f3fa236ab7fb4eceeb50ee42d56c0cc340c5ce1",
+    "run_formal.py": "8a2f4399702a2cb03a14d280876c02d2b4cb0cf8d5d76a818c26e81cf0021cbd",
+    "check_protocol.py": "227a652a669ac14903a9bdfe975a6829eb9e7a87f8c9fae2b2f6e05e61b622a9",
+    "final_test.py": "42a2e48a3c48a42fecabf7b1b56d6245de0fc588b30ab96ca5a353bf76cf03a3",
+    "model.py": "0ca92c7c5bf09dd605ecd3b0f8fcd680fc9191d4ad4c1ac17cf2cc72edf7ac6c",
+    "run_round1.py": "cf48314f0d08b75bca4a12c14adde45fb127d339ca42dfd34545602078a83dd1",
+    "run_alignment_audit.py": "7a249eacba44fda4b675f090ca1c2721868c1f7a951f9f2e316e1c2e3900bbeb",
+    "runtime.py": "6e355b5e6db05cd2d5a47e91a4618b2207ffed949c2f0dbd642a0c7a55e320c3",
+    "data.py": "7ac173e488e6b0df411f9c83fadd52b7432d3ce0e445150d0e2142e1bc56e0b4",
+    "full_mluda.py": "4d1e8a406ef78bd1626cdeefeddd2e6e22895373a973b474621b6ed8b3d44880",
+    "train.py": "c00d5aa04c715bd5982a227a60bd8d53b8dc5461eb58fbdf1d69e4b6275e0bd2",
+    "official_preprocessing.py": "d3d3d716b57f65661cee354a981cf0f516687bedd91afa9050d49a6a355cfcb5",
+    "full_mluda_objective.py": "f91d613f4497b9bdd3022e0036e8a4d41ad8a2792d02cdf54d5c4170c6e1dcc4",
+    "flow.py": "ffa27207a5033da7236f6baed1076fde140075eef316fb753846855f7bce19ed",
+    "reference/config_Houston.py": "661cd01d6c8e426a227a7671c73733a39d358a8770bdccbc25fa8cac0d693107",
+    "reference/MLUDA_hu.py": "7adfac14955c7792e89842c302bf72f68685950f3a378840fe2e83e8d283020c",
+    "reference/utils.py": "689900e941ac005cac59f8042198eafc23523fa7ac23f8445e45e241c29013e9",
+    "reference/Weight.py": "cf6bdf3886eed9aa6ade508ca90bd84e5732c3b15fe9cf31eb148f0862df89e6",
+    "reference/mmd.py": "55e4c7ab323c9ced9fe616e8d3f9be85c79cd5eb8c363a23288fc6049effd7b5",
+    "reference/contrastive_loss.py": "2de16e9bc769bb31e355d9926ef2a9b7d95c906745fbc8a578a4fdafce67dd42",
+    "reference/UtilsCMS.py": "bf91dac2d0c6f0f253bb0a9cb5d2b41355b4fd1d53b5f30c926c124f0e448555",
+    "reference/net2.py": "2874fd8c6e5b2b177ac8cd5dd5a9a28f682be04bccee0ccac9f7d58159d049c8"
+  },
+  "inputs": {
+    "/home/zhangzj26/TGRS_MLUDA-2024/datasets/Houston/Houston13.mat": "23039c1db9c3b82bde2b033381d3d7540c8201cc0e77d33eac816ab6cb1b8948",
+    "/home/zhangzj26/TGRS_MLUDA-2024/datasets/Houston/Houston18.mat": "15cdefb3639342344fbcb141d2ad8f729c387f3192174b82f8eaeede621fd208",
+    "/home/zhangzj26/TGRS_MLUDA-2024/datasets/Houston/Houston13_7gt.mat": "46bf31ad40ab2cd076cd110d3bc69fcf00154535cb25fbcb4768b6d6a56b4278",
+    "/home/zhangzj26/TGRS_MLUDA-2024/datasets/Houston/Houston18_7gt.mat": "7d65df1236d69b4846b5d4fdbbf38de97a5965395693b1752c814804ca03a616",
+    "/home/zhangzj26/spectralflow_uda/official_aligned/preprocessing/official_ilda.npz": "85c1f2b36ebee78aeb1f613a63f8b1d2ce4404e168b9f66d6567b019e598194e"
+  }
+}

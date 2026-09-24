@@ -1,5 +1,7 @@
-# SpectralFlow-UDA / official-aligned Houston
+# SpectralFlow-UDA: main experiment protocol
 
-See [PROTOCOL_ALIGNMENT.md](PROTOCOL_ALIGNMENT.md) for the verified official reference, all matches and intentional algorithm/selection differences.
+Start with [MAIN_PROTOCOL.md](MAIN_PROTOCOL.md) and [PROTOCOL_LOCK.json](PROTOCOL_LOCK.json).
 
-One A/B/C trainer; standalone version under /home/zhangzj26/spectralflow_uda/official_aligned. Parent raw results are preserved.
+Run `python run_round1.py` for the locked three-seed A/B/C and full-MLUDA comparison. It checks the protocol, runs fresh five-epoch audits for all seeds, verifies full-training A/B equality, evaluates source-val-best checkpoints and writes mean/std reports.
+
+See [PROTOCOL_ALIGNMENT.md](PROTOCOL_ALIGNMENT.md) for detailed official-code differences.

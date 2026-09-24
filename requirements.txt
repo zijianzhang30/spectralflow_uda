@@ -2,3 +2,7 @@ torch
 numpy
 hdf5storage
 scikit-learn
+scipy
+matplotlib
+scikit-image
+opencv-contrib-python

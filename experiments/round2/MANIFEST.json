@@ -1,0 +1,30 @@
+{
+  "status": "frozen for authorized six-run formal study",
+  "parent_protocol_sha256": "5c94c0386d0dbd925912072c55b98c85374fb19ce5ab60fa6697d22d3f6cd1cb",
+  "formal_seeds": [
+    1341,
+    1174,
+    1370
+  ],
+  "formal_methods": [
+    "C_state_only",
+    "OT_pull"
+  ],
+  "epochs": 100,
+  "lr_horizon": 100,
+  "fm_weight": 1,
+  "selection": "source_val_best",
+  "code": {
+    "augmentation.py": "d272c8ac92b6e3d0c410453638e60957eefe77def5e9f9c4587b43810cd3febd",
+    "check_objectives.py": "63cd6abdf4afa7aebafd5b99af6d754f0ca605dba43f3b4d9904cfa9be79fd85",
+    "data.py": "7ac173e488e6b0df411f9c83fadd52b7432d3ce0e445150d0e2142e1bc56e0b4",
+    "final_test.py": "42a2e48a3c48a42fecabf7b1b56d6245de0fc588b30ab96ca5a353bf76cf03a3",
+    "flow.py": "845edbd5fee7e484261b8dfdf66b41811ac7e7ebbcf980eba262d7dc296df494",
+    "model.py": "0ca92c7c5bf09dd605ecd3b0f8fcd680fc9191d4ad4c1ac17cf2cc72edf7ac6c",
+    "official_preprocessing.py": "d3d3d716b57f65661cee354a981cf0f516687bedd91afa9050d49a6a355cfcb5",
+    "runtime.py": "6e355b5e6db05cd2d5a47e91a4618b2207ffed949c2f0dbd642a0c7a55e320c3",
+    "train.py": "25dc7e563b21f838d371987624e7fa9b8738a3335a24d81daed2cbd5b45e5d9f",
+    "run_formal.py": "b184778d6e191e9a9981d4b2165a609ec017a6c6b11cc7c321bc340b3da3078c",
+    "launch_formal.py": "1fd732183979597079b8c83a99c3cbdb175ea8acffe2825b0ce2c02be6ef017e"
+  }
+}

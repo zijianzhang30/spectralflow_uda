@@ -16,3 +16,11 @@ preprocessing/*.npz
 .env
 .env.*
 *.pem
+
+# Keep generated experiment records local; retain only protocol configuration.
+results/
+*.json
+!official_aligned/PROTOCOL_LOCK.json
+!experiments/round2/MANIFEST.json
+experiments/*/RESULTS.md
+investigations/*/REPORT.md
