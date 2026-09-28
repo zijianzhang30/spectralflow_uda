@@ -1,0 +1,7 @@
+# Frozen SceneShift–MLUDA complementarity probe
+
+Date: 2026-09-24. This is an exploratory diagnostic on a previously inspected Houston18 development scene, not an independent benchmark claim or a proposed SpectralFlow method.
+
+For each pre-existing seed 202601/202602/202603, use only the already frozen source-val-best full-MLUDA and SceneShift target probability matrices. Match the official GT>0 center order exactly. Form one no-parameter arithmetic mean of the two **raw** probability matrices, and one no-parameter arithmetic mean of the two already fixed HyperSIGMA soft-KL-corrected probability matrices. The corrected versions use the same seed's teacher prior and the same existing strength 1 in both inputs; no correction is refit after averaging. Keep official 53,184 predictions / 53,200 OA denominator and AA/Kappa on predicted samples. Do not select a coefficient, model, checkpoint or variant from target labels. Save complete fused probability arrays plus input/output hashes before reading Houston18 GT. Then report OA/AA/Kappa, per-class recalls, per-seed change relative to both inputs, and how often one input is correct when the other is wrong. Do not train a new model or use the fused target predictions as pseudo-labels in this probe.
+
+This diagnostic asks whether the two independently trained feature/classification systems supply useful complementary information. A gain would motivate research into a trainable single-model fusion; an ensemble score alone is not evidence for OT or Flow and is not a publishable new algorithm.

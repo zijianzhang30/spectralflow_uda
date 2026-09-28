@@ -1,0 +1,9 @@
+# ILDA input ablation, preregistered design
+
+Question: for the locked CE-DCRN A baseline on Houston13 → Houston18, how much does official ILDA input preprocessing contribute?
+
+Arms: reuse completed official-ILDA A runs `investigations/distribution_correction_validation/runs/student_{seed}`; train new A runs using original raw Houston13/Houston18 cubes. The only intended change is `load_images(..., "raw", None)` rather than the hashed official ILDA cache. Use seeds 202601, 202602, 202603, 180 labeled source examples per class, identical source split/target center ordering and official augmentation, 7×7 patches, batch 32, 38 updates per epoch, official SGD schedule/weight decay/momentum, 100 epochs, and source-val-best selection. No target GT may affect training or selection.
+
+Before formal training, run a one-epoch audit on seed 202601. Verify identical source/target center arrays, labels, step count, initial model hash, and comparable RNG trajectories. Raw and ILDA input hashes and later trained-model hashes should differ. Source validation is used for checkpoint selection. As in the official protocol, target GT is loaded only to enumerate nonzero sampling centers during training; its class values are not used in the loss or model selection. Target labels are inspected for metrics only after inference outputs are frozen.
+
+The official target evaluation predicts the first 53,184 of the 53,200 ordered centers, with `drop_last=True`; OA uses correct/53,200 and AA, Kappa, per-class recall use the 53,184 predictions. Report each seed and mean ± sample standard deviation (ddof=1), including OA, AA, Kappa, selected epoch, and class recall. This is a preprocessing attribution study, not a new method or evidence of cross-dataset generalization. No parameter changes or target-GT tuning are permitted after seeing results.

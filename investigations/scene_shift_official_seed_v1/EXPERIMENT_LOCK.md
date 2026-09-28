@@ -1,0 +1,11 @@
+# Matched seed comparison: SceneShift / full MLUDA / equal fusion
+
+Houston13→Houston18, seeds 1341, 1174, 1370. This is an exploratory repeat on a scene whose GT has already been inspected; no target GT may select a checkpoint, loss weight, prior coefficient, or fusion coefficient. The original MLUDA paper's ten-seed list contains 1174 and 1370, not 1341; comparison to its published average is contextual only.
+
+Train SceneShift using the already locked composite recipe in `../scene_shift_v1/EXPERIMENT_LOCK.md` and `../../experiments/round9/train_scene_shift.py`, with the same ILDA cache, source split and target-center order as the existing full-MLUDA runs. Exactly 100 epochs; save both fixed epoch 100 and earliest source-val-best checkpoints. The extra source-style CE coefficient remains 0.5 and the style interpolation remains 0.7. No new method choice or coefficient sweep.
+
+For each seed and each checkpoint rule (fixed epoch 100; source-val-best), freeze probabilities on the first 53,184 official target centers from SceneShift and full MLUDA. Full MLUDA uses the last source minibatch saved with the corresponding checkpoint. Reproduce the existing full-MLUDA raw confusion matrices before interpreting any new comparison.
+
+Reuse the already source-trained, same-seed HyperSIGMA checkpoint. Its prior is the mean probability on **all 53,200** official target centers, including the 16 dropped evaluation centers. Apply the same soft-KL correction at fixed coefficient 1 to each model independently; keep raw predictions visible. Fuse the two raw probability arrays, or the two corrected arrays, by an exact 0.5/0.5 arithmetic mean. No target-GT-based fusion weight. Save prediction arrays, checkpoint hashes, prior hash, and solver records before reading target GT for this comparison.
+
+Report per-seed and mean ± sample SD for OA, AA, Kappa and all class recalls. OA uses correct/53,200, AA/Kappa/recalls use 53,184 evaluated predictions. The primary paired comparison is fixed epoch 100 SceneShift + prior versus fixed epoch 100 full MLUDA raw and + prior, with equal fusion as a separate two-model result. Source-val-best is a secondary paired checkpoint-selection analysis. Published MLUDA 76.64 OA / 76.71 AA is from a different ten-run setting and is not a paired comparator.
