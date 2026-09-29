@@ -10,7 +10,8 @@ def project_kl(q, prior):
     """argmin sum_i KL(r_i||q_i), subject to mean_i r_i == prior."""
     q = np.asarray(q, dtype=np.float64)
     prior = np.asarray(prior, dtype=np.float64)
-    assert q.ndim == 2 and q.shape[1] == 7 and np.all(q > 0)
+    assert q.ndim == 2 and prior.ndim == 1 and q.shape[1] == prior.shape[0]
+    assert q.shape[1] >= 2 and np.all(q > 0)
     assert np.all(prior > 0) and abs(prior.sum() - 1) < 1e-5
     logq = np.log(q)
 
@@ -23,7 +24,7 @@ def project_kl(q, prior):
         gradient = (r.mean(axis=0) - prior)[1:]
         return value, gradient
 
-    solution = minimize(objective, np.zeros(6), jac=True, method="BFGS",
+    solution = minimize(objective, np.zeros(q.shape[1] - 1), jac=True, method="BFGS",
                         options={"gtol": 1e-10, "maxiter": 1000})
     bias = np.r_[0.0, solution.x]
     z = logq + bias

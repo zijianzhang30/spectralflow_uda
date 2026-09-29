@@ -1,0 +1,13 @@
+nDataSet = 3
+BATCH_SIZE = 32
+epochs = 100
+lr = 0.0003
+CLASS_NUM = 3
+nBand = 198
+HalfWidth = 0
+pca_n = 2
+radius = 0.00009
+momentum = 0.9
+patch_size = 1
+l2_decay = 5e-4
+seeds = [1341, 1535, 1631]

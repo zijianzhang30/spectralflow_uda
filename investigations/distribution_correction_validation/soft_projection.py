@@ -11,7 +11,8 @@ def soft_project(q, prior, strength):
     q = np.asarray(q, dtype=np.float64)
     prior = np.asarray(prior, dtype=np.float64)
     strength = float(strength)
-    assert q.ndim == 2 and q.shape[1] == prior.shape[0] == 7
+    assert q.ndim == 2 and prior.ndim == 1 and q.shape[1] == prior.shape[0]
+    assert q.shape[1] >= 2
     assert strength > 0 and np.isfinite(strength)
     assert np.isfinite(q).all() and np.all(q > 0)
     assert np.isfinite(prior).all() and np.all(prior > 0)
@@ -28,7 +29,7 @@ def soft_project(q, prior, strength):
         value = log_partition.mean() + strength * logsumexp(target_logits)
         return value, (marg - target)[1:]
 
-    solution = minimize(dual, np.zeros(6), jac=True, method="BFGS",
+    solution = minimize(dual, np.zeros(q.shape[1] - 1), jac=True, method="BFGS",
                         options={"gtol": 1e-10, "maxiter": 1000})
     bias = np.r_[0.0, solution.x]
     logits = logq + bias
